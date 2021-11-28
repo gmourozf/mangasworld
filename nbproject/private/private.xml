@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/resources/views/home.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/app/Http/Controllers/MangaController.php</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/app/Models/Manga.php</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/config/database.php</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/app/Models/Scenariste.php</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/resources/views/listeMangas.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/.env</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/app/Models/Dessinateur.php</file>
+            <file>file:/C:/xampp/htdocs/Site_PHP/mangasworld/app/Models/Genre.php</file>
+        </group>
+    </open-files>
+</project-private>
