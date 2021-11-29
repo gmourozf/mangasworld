@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Exception;
+//use Request;
 
 class Manga extends Model {
 
@@ -22,5 +25,7 @@ class Manga extends Model {
     public function genre() {
         return $this->belongsTo('App\Models\Genre', 'id_genre', 'id_genre');
     }
+
+    
 
 }

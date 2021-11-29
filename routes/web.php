@@ -20,3 +20,10 @@ Route::get('/listerMangas', 'MangaController@getMangas');
 Route::post('/listerMangasGenre', 'MangaController@getMangasGenre');
 
 Route::get('/listerGenres/{erreur?}', 'GenreController@getGenres');
+
+//aficher un manga pour pouvoir eventuellement le modifier
+Route::get('/modifierManga/{id}/{erreur?}', 'MangaController@updateManga');
+
+Route::post('/validerManga', 'MangaController@validateManga');
+
+Route::get('/ajouterManga/{erreur?}', 'MangaController@addManga');
