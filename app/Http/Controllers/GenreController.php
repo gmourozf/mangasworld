@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Genre;
+use Session;
 
 class GenreController extends Controller
 {
@@ -13,8 +14,10 @@ class GenreController extends Controller
     @return vue formGenre
      */
 
-    public function getGenres($erreur = "")
+    public function getGenres()
     {
+        $erreur = Session::get('erreur');
+        Session::forget('erreur');
         $genres = Genre::all();
         return view('formGenre', compact('genres', 'erreur'));
     }

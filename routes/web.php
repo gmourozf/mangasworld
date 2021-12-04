@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\MangaController;
+
 Route::get('/', function () {
     return view('home');
 });
@@ -19,11 +21,13 @@ Route::get('/listerMangas', 'MangaController@getMangas');
 //lister tous les mangas d'un genre séléctionné
 Route::post('/listerMangasGenre', 'MangaController@getMangasGenre');
 
-Route::get('/listerGenres/{erreur?}', 'GenreController@getGenres');
+Route::get('/listerGenres', 'GenreController@getGenres');
 
 //aficher un manga pour pouvoir eventuellement le modifier
-Route::get('/modifierManga/{id}/{erreur?}', 'MangaController@updateManga');
+Route::get('/modifierManga/{id}', 'MangaController@updateManga');
 
 Route::post('/validerManga', 'MangaController@validateManga');
 
-Route::get('/ajouterManga/{erreur?}', 'MangaController@addManga');
+Route::get('/ajouterManga', 'MangaController@addManga');
+
+Route::get('/supprimerManga/{id}', 'MangaController@deleteManga');

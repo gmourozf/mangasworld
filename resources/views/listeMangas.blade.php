@@ -15,14 +15,14 @@
                 <th style="width: 50px;">Modifier</th>
                 <th style="width: 50px;">Supprimer</th>
             </tr>
-        </thead>        
+        </thead>
         @foreach($mangas as $manga)
-        <tr>   
+        <tr>
             <td> {{$manga->titre}} </td>
             <td> {{$manga->genre->lib_genre}} </td>
             <td> {{$manga->dessinateur->nom_dessinateur}} </td>
             <td> {{$manga->scenariste->nom_scenariste}} </td>
-            <td> {{$manga->prix}} </td>         
+            <td> {{$manga->prix}} </td>
             <td style="text-align:center;"><a href="{{url('modifierManga')}}/{{$manga->id_manga}}">
                     <span class="glyphicon glyphicon-pencil" data-toggle="tooltip" data-placement="top" title="Modifier"></span></a>
             </td>
@@ -33,8 +33,11 @@
                                window.location = '{{url('/supprimerManga')}}/{{$manga->id_manga}}';
                            }">
                 </a>
-            </td>            
+            </td>
         </tr>
+        <div class="col-md-6 col-md-offset-3">
+            @include('error')
+          </div>
        @endforeach
         <BR> <BR>
     </table>
