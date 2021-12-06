@@ -10,6 +10,7 @@ use App\Models\Scenariste;
 use Request;
 use Exception;
 use Session;
+use Validator;
 
 
 class MangaController extends Controller
@@ -74,6 +75,32 @@ On remarquera que l'on a mis au pluriel la variable $mangas car elle représente
     {
         //recuperation des valeurs saisies
         $id_manga = Request::input('id_manga');  // id dans le champs caché
+        // liste des champs a valider
+
+        $regles= array(
+            'titre' => 'required',
+            'prix'=> 'required | numeric',
+            'cbScenariste' => 'required',
+            'cbGenre'=> 'required',
+            'cbDessinateur'=> 'required'
+        );
+
+        //Validation des champs
+        $validator = Validator::make(Request::all(),$regles);
+        //on retourne au formulaire s'il y a un problème.
+        if($validator->fails()){
+            if($id_manga >0) {
+                return redirect('modifierManga/'.$id_manga)
+                ->withErrors($validator)
+                ->withInput();
+            }else {
+                return redirect('ajouterManga/')
+                ->withErrors($validator)
+                ->withInput();
+            }
+        }
+
+
         $id_dessinateur = Request::input('cbDessinateur'); //Liste déroulante
         $prix = Request::input('prix');
         $id_scenariste = Request::input('cbScenariste'); //liste déroulante
@@ -120,6 +147,59 @@ On remarquera que l'on a mis au pluriel la variable $mangas car elle représente
         //on reaffiche la liste
         return redirect('/listerMangas');
     }
+
+
+    // public function validateMangaOld()
+    // {
+    //     //recuperation des valeurs saisies
+    //     $id_manga = Request::input('id_manga');  // id dans le champs caché
+
+    //             $id_dessinateur = Request::input('cbDessinateur'); //Liste déroulante
+    //     $prix = Request::input('prix');
+    //     $id_scenariste = Request::input('cbScenariste'); //liste déroulante
+    //     $titre = Request::input('titre');
+    //     $id_genre = Request::input('cbGenre'); // liste deroulante
+
+    //     //si on upload une image il faut la sauvegarder
+    //     //Sinon on récupère le nom dans le champ caché
+    //     if (Request::hasFile('couverture')) {
+    //         $image = Request::file('couverture');
+    //         $couverture = $image->getClientOriginalName();
+    //         Request::file('couverture')->move(base_path() . '/public/images/', $couverture);
+    //     } else {
+    //         $couverture = Request::input('couvertureHidden');
+    //     }
+    //     //si id_manga est >0 il faut lire le manga existant
+    //     //sinon il faut creer le manga
+    //     if ($id_manga > 0) {
+    //         $manga = Manga::find($id_manga);
+    //     } else {
+    //         $manga = new Manga();
+    //     }
+
+    //     $manga->titre = $titre;
+    //     $manga->couverture = $couverture;
+    //     $manga->prix = $prix;
+    //     $manga->id_dessinateur = $id_dessinateur;
+    //     $manga->id_scenariste = $id_scenariste;
+    //     $manga->id_genre = $id_genre;
+    //     $manga->id_lecteur = 1;
+
+
+    //     try {
+    //         $manga->save();
+    //     } catch (Exception $ex) {
+    //         $erreur = $ex->getMessage();
+    //         Session::put('erreur', $erreur);
+    //         if ($id_manga > 0) {
+    //             return redirect('/modifierManga/' . $id_manga);
+    //         } else {
+    //             return redirect('/ajouterManga');
+    //         }
+    //     }
+    //     //on reaffiche la liste
+    //     return redirect('/listerMangas');
+    // }
     /**
      * Formulair d'ajout d'un manga
      * initialise toutes les listes deroulantes
