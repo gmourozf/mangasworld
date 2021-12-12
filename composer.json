@@ -1,4 +1,4 @@
-    {
+{
     "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
@@ -12,7 +12,8 @@
         "fideloper/proxy": "^4.4",
         "laravel/framework": "^6.20.26",
         "laravel/tinker": "^2.5",
-		"laravelcollective/html" : "^6.0"
+        "laravel/ui": "^V1.2.0",
+        "laravelcollective/html": "^6.0"
     },
     "require-dev": {
         "facade/ignition": "^1.16.15",

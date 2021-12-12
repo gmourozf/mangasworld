@@ -13,9 +13,7 @@
 
 use App\Http\Controllers\MangaController;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/','HomeController@index' );
 Route::get('/listerMangas', 'MangaController@getMangas');
 
 //lister tous les mangas d'un genre séléctionné
@@ -31,3 +29,11 @@ Route::post('/validerManga', 'MangaController@validateManga');
 Route::get('/ajouterManga', 'MangaController@addManga');
 
 Route::get('/supprimerManga/{id}', 'MangaController@deleteManga');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/profil','ProfilController@getProfil');
+
+Route::post('/profil','ProfilController@setProfil');

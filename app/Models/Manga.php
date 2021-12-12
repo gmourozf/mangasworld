@@ -7,25 +7,26 @@ use Illuminate\Http\Request;
 use Exception;
 //use Request;
 
-class Manga extends Model {
-
+class Manga extends Model
+{
+    // les variables $table, timestamps, primaryKey, fillable sont des mots reserver pour le framework Laravel
     protected $table = 'manga';
     public $timestamps = false;
     protected $primaryKey = 'id_manga';
     protected $fillable = ['id_manga', 'id_dessinateur', 'id_scenariste', 'prix', 'titre', ' couverture', 'id_genre'];
 
-    public function dessinateur() {
+    public function dessinateur()
+    {
         return $this->belongsTo('App\Models\Dessinateur', 'id_dessinateur', 'id_dessinateur');
     }
 
-    public function scenariste() {
+    public function scenariste()
+    {
         return $this->belongsTo('App\Models\Scenariste', 'id_scenariste', 'id_scenariste');
     }
 
-    public function genre() {
+    public function genre()
+    {
         return $this->belongsTo('App\Models\Genre', 'id_genre', 'id_genre');
     }
-
-    
-
 }

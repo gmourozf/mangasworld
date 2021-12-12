@@ -75,28 +75,36 @@ On remarquera que l'on a mis au pluriel la variable $mangas car elle représente
     {
         //recuperation des valeurs saisies
         $id_manga = Request::input('id_manga');  // id dans le champs caché
-        // liste des champs a valider
+        // on met la liste des champs a valider dans un array
 
-        $regles= array(
+        $regles = array(
             'titre' => 'required',
-            'prix'=> 'required | numeric',
+            'prix' => 'required | numeric',
             'cbScenariste' => 'required',
-            'cbGenre'=> 'required',
-            'cbDessinateur'=> 'required'
+            'cbGenre' => 'required',
+            'cbDessinateur' => 'required'
+        );
+        $messages = array(
+            'titre.required' => 'Il faut saisir un titre',
+            'cbGenre.required' => 'Il faut sélectionner un genre.',
+            'cbScenariste.required' =>  'Il faut sélectionner un scénariste.',
+            'cbDessinateur.required' => 'Il faut sélectionner un dessinateur.',
+            'prix.required' => 'Il faut saisir un prix.',
+            'prix.numeric' => 'Le prix doit être une valeur numérique.'
         );
 
-        //Validation des champs
-        $validator = Validator::make(Request::all(),$regles);
+        //Validation des champs , on recupère tous les champs et on applique les règles de veérification
+        $validator = Validator::make(Request::all(), $regles, $messages);
         //on retourne au formulaire s'il y a un problème.
-        if($validator->fails()){
-            if($id_manga >0) {
-                return redirect('modifierManga/'.$id_manga)
-                ->withErrors($validator)
-                ->withInput();
-            }else {
+        if ($validator->fails()) {
+            if ($id_manga > 0) {
+                return redirect('modifierManga/' . $id_manga)
+                    ->withErrors($validator)
+                    ->withInput();
+            } else {
                 return redirect('ajouterManga/')
-                ->withErrors($validator)
-                ->withInput();
+                    ->withErrors($validator)
+                    ->withInput();
             }
         }
 
