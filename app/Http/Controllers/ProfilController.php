@@ -34,7 +34,7 @@ class ProfilController extends Controller
         );
         $validator = Validator::make(Request::all(), $regles, $messages);
         //on retourne au formulaire s'il y a un problème;
-        if ($validator->fail()) {
+        if ($validator->fails()) {
             return redirect('formProfil')
                 ->withErrors($validator)
                 ->withInput();

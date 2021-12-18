@@ -68,9 +68,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        // $lecteur = new Lecteur();
-        // $lecteur->id = $user->id;
-        // $lecteur->save();
+        $lecteur = new Lecteur();
+        //$lecteur->timestamp = false;
+        $lecteur->id_lecteur = $user->id;
+        $lecteur->save();
         return $user;
     }
 }

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Lecteur extends Model
 {
     protected $table = 'lecteur';
-    public $timestamp = false;
-    protected $primary = 'id_lecteur';
+    public $timestamps = false;
+    protected $primaryKey = 'id_lecteur';
     protected $fillable = ['id_lecteur', 'nom', 'prenom', 'rue', 'cp', 'ville'];
 
     public function mangas()

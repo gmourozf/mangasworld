@@ -5,7 +5,7 @@
     <center><h1>Authentification</h1></center>
     <form method="POST" action="{{ route('login') }}">
          @csrf
-        <div class="form-horizontal">    
+        <div class="form-horizontal">
             <div class="form-group">
                 <label class="col-md-3 control-label">Identifiant : </label>
                 <div class="col-md-3 ">
@@ -36,7 +36,7 @@
                                <label class="form-check-label" for="remember"> {{ ('Se souvenir de moi') }}</label>
                     </div>
                 </div>
-            </div>        
+            </div>
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-3">
                     <button type="submit" class="btn btn-default btn-primary"><span class="glyphicon glyphicon-log-in"></span> Valider</button>
@@ -44,11 +44,11 @@
                     <a class="btn btn-link" href="{{ route('password.request') }}">
                         {{ __('Mot de passe oublié ?') }}
                     </a>
-                    @endif                
+                    @endif
                 </div>
             </div>
         </div>
-    </form>        
+    </form>
 </div>
 @stop
 

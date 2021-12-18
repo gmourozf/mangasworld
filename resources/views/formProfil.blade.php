@@ -71,7 +71,7 @@
         <div class="form-group">
             <label class="col-md-3 control-label">Rôle : </label>
             <div class="col-md-3 ">
-               {{!! Form::text('role', $user->role,['class'=>"form-control", "readonly"]) !!}}
+               {!! Form::text("role", $user->role,["class"=>"form-control", "readonly"]) !!}
             </div>
         </div>
         <div class="form-group">
