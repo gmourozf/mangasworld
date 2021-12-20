@@ -11,7 +11,7 @@
                 <label class="col-md-3 control-label">Titre : </label>
                 <div class="col-md-3">
                     {{-- champs de type text --}}
-                    {{ Form::text('titre', old('titre') ? old('titre') : (!empty($manga) ? $manga->titre : null), ['class' => 'form-control', 'placeholder' => 'Titre', 'autofocus']) }}
+                    {{ Form::text('titre', old('titre') ? old('titre') : (!empty($manga) ? $manga->titre : null), ['class' => 'form-control', 'placeholder' => 'Titre', 'autofocus',$readonly ]) }}
                 </div>
                 @error('titre')
                     <span class='invalid-feedback' role="alert">
@@ -24,7 +24,7 @@
                 <label class="col-md-3 control-label">Genre : </label>
                 <div class="col-md-3">
                     {{-- //champ de type select --}}
-                    {{ Form::select('cbGenre', $genres->pluck('lib_genre', 'id_genre'), $manga->id_genre, ['class'=> 'form-control', 'placeholder'=> 'sélectionner un genre']) }}
+                    {{ Form::select('cbGenre', $genres->pluck('lib_genre', 'id_genre'), $manga->id_genre, ['class'=> 'form-control', 'placeholder'=> 'sélectionner un genre', $readonly? 'disabled' : '']) }}
 
 
                     {{-- /* <select class='form-control' name='cbGenre' required>
@@ -45,7 +45,7 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">Scenariste : </label>
                 <div class="col-md-3">
-                    {{ Form::select('cbScenariste', $scenaristes->pluck('nom_scenariste', 'id_scenariste'), $manga->id_scenariste, ['class' => 'form-control', 'placeholder' => 'Sélectionner un Scenariste']) }}
+                    {{ Form::select('cbScenariste', $scenaristes->pluck('nom_scenariste', 'id_scenariste'), $manga->id_scenariste, ['class' => 'form-control', 'placeholder' => 'Sélectionner un Scenariste', $readonly]) }}
 
                     {{-- // <select class="form-control" name='cbScenariste' required>
                         // <OPTION VALUE=0>Sélectionner un Scenariste</option>
@@ -66,7 +66,7 @@
                 <label class="col-md-3 control-label">Dessinateur : </label>
                 <div class="col-md-3">
 
-                    {{ Form::select('cbDessinateur', $dessinateurs->pluck('nom_dessinateur','id_dessinateur' ,), $manga->id_dessinateur, ['class' => 'form-control', 'placeholder' => 'Sélectionner un Dessinateur']) }}
+                    {{ Form::select('cbDessinateur', $dessinateurs->pluck('nom_dessinateur','id_dessinateur' ,), $manga->id_dessinateur, ['class' => 'form-control', 'placeholder' => 'Sélectionner un Dessinateur' ] ) }}
                     {{-- <select class='form-control' name='cbDessinateur' required>
                         <OPTION VALUE=0>Sélectionner un Dessinateur</option>
                         @foreach ($dessinateurs as $dessinateur)
@@ -85,7 +85,7 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">Prix : </label>
                 <div class="col-md-3">
-                    {{ Form::text('prix', old('prix') ? old('prix') : (!empty($manga) ? $manga->prix : null), ['class' => 'form-control', 'placeholder' => 'Prix','required']) }}
+                    {{ Form::text('prix', old('prix') ? old('prix') : (!empty($manga) ? $manga->prix : null), ['class' => 'form-control', 'placeholder' => 'Prix','required', $readonly]) }}
 
 
                     {{-- <input type="text" name="prix" value="{{ $manga->prix }}" class="form-control" required> --}}
@@ -98,7 +98,7 @@
                 <label class="col-md-3 control-label">Couverture : </label>
                 <div class="col-md-6">
                     <input type="hidden" name="MAX_FILE_SIZE" value="204800" />
-                    <input name="couverture" type="file" class="btn btn-default pull-left" />
+                    <input name="couverture" type="file" class="btn btn-default pull-left" @if($readonly) disabled @endif  />
                     <input type="hidden" name="couvertureHidden" value="{{ $manga->couverture }}" />
                     <img src='{{ URL::to('/') }}/images/{{ $manga->couverture }}'
                         class='img-responsive pull-right imgReduite' alt='{{ $manga->couverture }}' />
@@ -106,7 +106,7 @@
             </div>
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-3">
-                    <button type="submit" class="btn btn-default btn-primary">
+                    <button type="submit" class="btn btn-default btn-primary" @if($readonly) disabled @endif>
                         <span class="glyphicon glyphicon-ok"></span> Valider
                     </button>
                     &nbsp;

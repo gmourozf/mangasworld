@@ -36,11 +36,11 @@
                         <ul class="nav navbar-nav">
                             <li><a href="{{ url('/listerMangas') }}" data-toggle="collapse" data-target=".navbar-collapse.in">Lister</a></li>
                             <li><a href="{{ url('/listerGenres') }}" data-toggle="collapse" data-target=".navbar-collapse.in">Mangas par genre</a></li>
-                           @auth
-                           @if($user->role == 'contrib')
+
+                           @can( 'contrib')
                             <li><a href="{{ url('/ajouterManga') }}"data-toggle="collapse" data-target=".navbar-collapse.in">Ajouter</a></li>
-                            @endif
-                           @endauth
+                            @endcan
+
                         </ul>
                         @auth
 

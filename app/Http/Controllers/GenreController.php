@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Genre;
+use Auth;
 use Session;
 
 class GenreController extends Controller
@@ -15,10 +16,10 @@ class GenreController extends Controller
      */
 
     public function getGenres()
-    {
+    {   $user = Auth::user();
         $erreur = Session::get('erreur');
         Session::forget('erreur');
         $genres = Genre::all();
-        return view('formGenre', compact('genres', 'erreur'));
+        return view('formGenre', compact('genres', 'user', 'erreur'));
     }
 }

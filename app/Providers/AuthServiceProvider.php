@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Manga;
+use App\Policies\MangaPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Auth;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+         'App\Model' => 'App\Policies\ModelPolicy',
+         Manga::class => MangaPolicy::class,
     ];
 
     /**
@@ -25,6 +31,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //verifie que l'utilisateur dispose du rôle Contributeur
+        Gate::define('contrib', function($user){
+            return $user->role == 'contrib';
+        });
+
+        //verifier que l'utilisateur  dispose du role Commentateur
+        Gate::define('comment', function($user){
+            return $user->role == 'comment';
+        });
     }
 }
