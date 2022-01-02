@@ -18,7 +18,7 @@
                         <th style="width: 50px;">Supprimer</th>
                     @endcan
                     @can('comment')
-                        <th style="width :50px;">consulter</th>
+                        <th style="width :50px;">Consulter</th>
                     @endcan
                 </tr>
             </thead>

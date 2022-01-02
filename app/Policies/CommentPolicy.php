@@ -4,9 +4,9 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Models\Manga;
+use App\Models\Commentaire;
 
-class MangaPolicy
+class CommentPolicy
 {
     use HandlesAuthorization;
 
@@ -20,16 +20,15 @@ class MangaPolicy
         //
     }
 
-    //seul les contributeurs qui ont créé le Manga peuvent le modifier
-    public function modifier(User $user, Manga $manga)
+    public function modifierCommentaire(User $user, Commentaire $commentaire)
     {
-        $autorized = ($user->role == 'contrib' && $user->id == $manga->id_lecteur);
+        $autorized = ($user->role == 'comment' &&  $user->id == $commentaire->id_lecteur);
         return $autorized;
     }
     // seul les contributeurs qui ont créé le Manga peuvent le supprimer
-    public function supprimer(User $user, Manga $manga)
+    public function supprimerCommentaire(User $user, Commentaire $commentaire)
     {
-        $autorized = ($user->role == 'contrib' && $user->id == $manga->id_lecteur);
+        $autorized = ($user->role == 'comment' && $user->id == $commentaire->id_lecteur);
         return $autorized;
     }
 }

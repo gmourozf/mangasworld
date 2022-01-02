@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 // use Illuminate\Http\Request;
+
+use App\Models\Commentaire;
 use App\Models\Manga;
 use App\Models\Genre;
 use App\Models\Dessinateur;
@@ -77,11 +79,10 @@ On remarquera que l'on a mis au pluriel la variable $mangas car elle représente
         if (!$user->can('modifier', $manga)) {
             $erreur = "Vous ne pouvez  modifier  que les mangas que vous avez créées !";
             $readonly = 'readonly';
-         
         }
 
         //afficher le formulaire en lui donnant les données à afficher
-        return view('formManga', compact('manga', 'genres', 'dessinateurs', 'scenaristes', 'titreVue' ,'readonly', 'erreur'));
+        return view('formManga', compact('manga', 'genres', 'dessinateurs', 'scenaristes', 'titreVue', 'readonly', 'erreur'));
     }
 
     public function validateManga()
@@ -106,7 +107,7 @@ On remarquera que l'on a mis au pluriel la variable $mangas car elle représente
             'prix.numeric' => 'Le prix doit être une valeur numérique.'
         );
 
-        //Validation des champs , on recupère tous les champs et on applique les règles de veérification
+        //Validation des champs , on recupère tous les champs et on applique les règles de vérification
         $validator = Validator::make(Request::all(), $regles, $messages);
         //on retourne au formulaire s'il y a un problème.
         if ($validator->fails()) {
@@ -205,27 +206,25 @@ On remarquera que l'on a mis au pluriel la variable $mangas car elle représente
 
             $manga->delete();
             return redirect('/listerMangas');
-
         } catch (Exception $ex) {
             $erreur = $ex->getMessage();
             Session::put('erreur', $erreur);
             return redirect('/listerMangas');
         }
-
     }
 
     public function showManga($id)
     {
         $erreur = Session::get('erreur');
         Session::forget('erreur');
-        $readonly = 'readonly';
-        $disabled = 'disabled';
+        $readonly = 'readonly';  // pour mettre les données de formulaire en lecture seule
+        $disabled = 'disabled'; // pour mettre les données de formulaire en lecture seule
         $manga = Manga::find($id);
         $genres = Genre::all();
-        $dessinateurs= Dessinateur::all();
+        $dessinateurs = Dessinateur::all();
         $scenaristes = Scenariste::all();
-        $titreVue= "Consultation d'un Manga";
+        $titreVue = "Consultation d'un Manga";
         //Affiche le formulaire en lui fournissant le donnés à afficher
-        return view('formManga', compact('manga', 'genres', 'dessinateurs', 'scenaristes', 'titreVue', 'readonly','disabled', 'erreur'));
+        return view('formManga', compact('manga', 'genres', 'dessinateurs', 'scenaristes', 'titreVue', 'readonly', 'disabled', 'erreur'));
     }
 }

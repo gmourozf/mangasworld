@@ -66,7 +66,7 @@
                 <label class="col-md-3 control-label">Dessinateur : </label>
                 <div class="col-md-3">
 
-                    {{ Form::select('cbDessinateur', $dessinateurs->pluck('nom_dessinateur','id_dessinateur' ,), $manga->id_dessinateur, ['class' => 'form-control', 'placeholder' => 'Sélectionner un Dessinateur' ] ) }}
+                    {{ Form::select('cbDessinateur', $dessinateurs->pluck('nom_dessinateur','id_dessinateur' ,), $manga->id_dessinateur, ['class' => 'form-control', 'placeholder' => 'Sélectionner un Dessinateur',$readonly? 'disabled' : '' ] ) }}
                     {{-- <select class='form-control' name='cbDessinateur' required>
                         <OPTION VALUE=0>Sélectionner un Dessinateur</option>
                         @foreach ($dessinateurs as $dessinateur)
@@ -104,6 +104,16 @@
                         class='img-responsive pull-right imgReduite' alt='{{ $manga->couverture }}' />
                 </div>
             </div>
+            @can('comment')
+            <div class="form-group">
+                <div class="col-md-6 col-md-offset-3">
+                    <button type="button" class="btn btn-default btn-primary"
+                            onclick="javascript: window.location = '{{ url('/ajouterCommentaire') }}/{{ $manga->id_manga }}';">
+                        <span class="glyphicon glyphicon-plus"></span> Ajouter un commentaire
+                    </button>
+                </div>
+            </div>
+            @endcan
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-3">
                     <button type="submit" class="btn btn-default btn-primary" @if($readonly) disabled @endif>
