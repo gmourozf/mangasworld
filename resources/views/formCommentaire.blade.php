@@ -24,15 +24,15 @@
             <div class="form-group">
                 <label class="col-md-3 control-label">Scenariste : </label>
                 <div class="col-md-3">
-                    <input type="text" name="genre" value="{{ $manga->scenariste->nom_scenariste }}" class="form-control"
-                        readonly>
+                    <input type="text" name="genre" value="{{ $manga->scenariste->nom_scenariste }}"
+                        class="form-control" readonly>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-3 control-label">Dessinateur : </label>
                 <div class="col-md-3">
                     <input type="text" name="genre"
-                        value="{{ $manga->scenariste->prenom_scenariste }} {{ $manga->scenariste->prenom_scenariste }}"
+                        value="{{ $manga->dessinateur->nom_dessinateur }} {{ $manga->dessinateur->prenom_dessinateur }}"
                         class="form-control" readonly>
                 </div>
             </div>
