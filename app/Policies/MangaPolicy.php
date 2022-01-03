@@ -22,7 +22,7 @@ class MangaPolicy
 
     //seul les contributeurs qui ont créé le Manga peuvent le modifier
     public function modifier(User $user, Manga $manga)
-    {
+    {   
         $autorized = ($user->role == 'contrib' && $user->id == $manga->id_lecteur);
         return $autorized;
     }

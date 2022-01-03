@@ -47,8 +47,15 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/supprimerManga/{id}', 'MangaController@deleteManga');
 });
 
-Route::get('/listerCommentaires/{id}', 'CommentController@getComments')->middleware('can:comment');
+// Route::get('/listerCommentaires/{id}', 'CommentController@getComments')->middleware('can:comment');
+Route::get('/listerCommentaires/{id}', 'CommentController@getComments');
+
 Route::get('/ajouterCommentaire/{id}', 'CommentController@addComment')->middleware('can:comment');
 
-Route::get('/validerCommentaire', 'CommentController@validateComment')->middleware('can:comment');
-Route::get('/consulterCommentaire/{id}', 'CommentController@showComment');
+//les commentaires créés sont enregistrés en base
+Route::post('/validerCommentaire', 'CommentController@validateComment')->middleware('can:comment');
+Route::get('/modifierCommentaire/{id}', 'Commentcontroller@updateComment')->middleware('can:comment');
+Route::get('/consulterCommentaire/{id}', 'CommentController@showComment')->middleware('can:viewComments');
+Route::get('/supprimerCommentaire/{id}', 'CommentController@deleteComment');
+
+

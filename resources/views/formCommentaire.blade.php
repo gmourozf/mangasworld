@@ -3,7 +3,7 @@
 
     <div class="col-md-12 well well-sm">
         <center>
-            <h1>{{ $titreVue }}}</h1>
+            <h1>{{ $titreVue }}</h1>
         </center>
         {!! Form::open(['url' => 'validerCommentaire', 'files' => true]) !!}
         <div class="form-horizontal">
@@ -53,9 +53,9 @@
                 <label class="col-md-3 control-label">Commentaire : </label>
                 <div class="col-md-5">
                     <textarea id="lib_commentaire" row="2" name="lib_commentaire" class="form-control" required autofocus
-                        placeholder="saisissez un commentaire" $readonly>{{ $commentraire->lib_commentaire }}</textarea>
+                        placeholder="saisissez un commentaire" $readonly>{{ $commentaire->lib_commentaire }}</textarea>
                 </div>
-                @error('prix')
+                @error('lib_commentaire')
                     <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                 @enderror
             </div>

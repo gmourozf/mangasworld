@@ -47,5 +47,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('comment', function ($user) {
             return $user->role == 'comment';
         });
+
+        Gate::define('viewComments', function ($user) {
+            return ($user->role == 'comment'||$user->role == 'contrib');
+        });
+
+
     }
 }
