@@ -25,7 +25,7 @@ class CommentPolicy
         $autorized = ($user->role == 'comment' &&  $user->id == $commentaire->id_lecteur);
         return $autorized;
     }
-    // seul les contributeurs qui ont créé le Manga peuvent le supprimer
+    // seul les contributeurs qui ont créé les commentaires  peuvent les supprimer
     public function supprimerCommentaire(User $user, Commentaire $commentaire)
     {
         $autorized = ($user->role == 'comment' && $user->id == $commentaire->id_lecteur);

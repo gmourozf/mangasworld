@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Auth;
 use App\Models\Manga;
+use App\Models\Commentaire;
 use App\Policies\CommentPolicy;
 use App\Policies\MangaPolicy;
 
@@ -26,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         // pour que'elle soit prise en compte dans le code
         'App\Model' => 'App\Policies\ModelPolicy',
         Manga::class => MangaPolicy::class,
-        Comment::class => CommentPolicy::class,
+        Commentaire::class => CommentPolicy::class,
     ];
 
     /**
@@ -44,7 +45,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         //verifier que l'utilisateur  dispose du role Commentateur
-        Gate::define('comment', function ($user) {
+        Gate::define('com   ment', function ($user) {
             return $user->role == 'comment';
         });
 

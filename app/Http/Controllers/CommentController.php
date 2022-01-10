@@ -67,29 +67,26 @@ class CommentController extends Controller
         $id_manga = $commentaire->manga->id_manga;
         $manga = Manga::find($id_manga);
         $erreur = Session::get('erreur');
-     //on supprime le message d'erreur stocké dans la session
-     Session::forget('erreur');
-     $readonly = 'readonly';
-     $titreVue = "Modification d'un commentaire";
-     //on vérifie que l'utilisateur a bien le droit de modifier
-     $user = Auth::user();
+        //on supprime le message d'erreur stocké dans la session
+        Session::forget('erreur');
+        $readonly = 'readonly';
+        $titreVue = "Modification d'un commentaire";
+        //on vérifie que l'utilisateur a bien le droit de modifier
+        $user = Auth::user();
 
-    //  if (!$user->can('viewComments',$commentaire)) {
-    //      $erreur = "Vous ne pouvez que consulter les commentaires mais pas en le modifier  !";
-    //      $readonly = 'readonly';
-    //  }
-     //afficher le formulaire en lui donnant les données à afficher
-     return view('formCommentaire', compact('manga', 'commentaire', 'user', 'titreVue', 'readonly', 'erreur'));
-
-
+        //  if (!$user->can('viewComments',$commentaire)) {
+        //      $erreur = "Vous ne pouvez que consulter les commentaires mais pas en le modifier  !";
+        //      $readonly = 'readonly';
+        //  }
+        //afficher le formulaire en lui donnant les données à afficher
+        return view('formCommentaire', compact('manga', 'commentaire', 'user', 'titreVue', 'readonly', 'erreur'));
     }
 
     public function validateComment()
-
     {  // on recupère le commentaire  posté
         $user = Auth::user();
         $id_manga = Request::input('id_manga');
-        $id_commentaire = Request:: input('id_commentaire');
+        $id_commentaire = Request::input('id_commentaire');
         $lib_commentaire = Request::input('lib_commentaire');
 
         // on enonce les règles de validations
@@ -113,7 +110,6 @@ class CommentController extends Controller
                     ->withErrors($validator)
                     ->withInput();
             } else {
-
                 return redirect('ajouterCommentaire/' . $id_manga)
                     ->withErrors($validator)
                     ->withInput();
@@ -130,30 +126,27 @@ class CommentController extends Controller
         //on créé / modifie un commentaire.
         $commentaire->lib_commentaire = $lib_commentaire;
         // si on est en création d'un commentaire alors on rempli les champs id_manga, id_lecteur
-        if(!$id_commentaire > 0) {
-        $commentaire->id_manga = $id_manga;
-        $commentaire->id_lecteur = $user->id;
+        if (!$id_commentaire > 0) {
+            $commentaire->id_manga = $id_manga;
+            $commentaire->id_lecteur = $user->id;
         }
 
         try {
             $commentaire->save();
             return redirect('/listerCommentaires/'. $id_manga);
-
         } catch (Exception $ex) {
-
             $erreur = $ex->getMessage();
             Session::put('erreur', $erreur);
             return redirect('/listerCommentaires/'. $id_manga);
         }
-
     }
 
-    public function updateComment($id_commentaire){
-
-           $commentaire = Commentaire::find($id_commentaire);
-           $id_manga = $commentaire->manga->id_manga;
-           $manga = Manga::find($id_manga);
-           $erreur = Session::get('erreur');
+    public function updateComment($id_commentaire)
+    {
+        $commentaire = Commentaire::find($id_commentaire);
+        $id_manga = $commentaire->manga->id_manga;
+        $manga = Manga::find($id_manga);
+        $erreur = Session::get('erreur');
         //on supprime le message d'erreur stocké dans la session
         Session::forget('erreur');
         $readonly = null;
@@ -161,7 +154,7 @@ class CommentController extends Controller
         //on vérifie que l'utilisateur a bien le droit de modifier
         $user = Auth::user();
 
-        if (!$user->can('comment',$commentaire)) {
+        if (!$user->can('comment', $commentaire)) {
             $erreur = "Vous ne pouvez que consulter les commentaires mais pas en le modifier  !";
             $readonly = 'readonly';
         }
@@ -170,43 +163,33 @@ class CommentController extends Controller
     }
 
 
-/***fonction qui permet de supprimer un commentaire dont on est l'auteur. */
+    /***fonction qui permet de supprimer un commentaire dont on est l'auteur. */
 
 
-    public function deleteComment($id_commentaire) {
+    public function deleteComment($id_commentaire)
+    {
         $erreur = Session::get('erreur');
         Session::forget('erreur');
         $commentaire = Commentaire::find($id_commentaire);
         $id_manga = $commentaire->manga->id_manga;
         $user = Auth::user();
-        if(!$user->can('supprimerCommentaire', $commentaire)){
+        if(($user->can('supprimerCommentaire', $commentaire)) ==false)
+        //if (($user->role == 'comment' && $user->id == $commentaire->id_lecteur) == false)
+            {
             $erreur = "vos droits sont insuffisants pour supprimer ce commentaire";
             Session::put('erreur', $erreur);
             return redirect('/listerCommentaires/'. $id_manga);
 
         }
-        try{
-            $commentaire->delete();
+            try {
+                $commentaire->delete();
+            } catch (Exception $ex) {
+                $erreur = $ex->getMessage();
+                Session::put('erreur', $erreur);
+                return redirect('/listerCommentaires/'. $id_manga);
+            }
 
-        }catch(Exception $ex){
-            $erreur = $ex->getMessage();
-            Session::put('erreur', $erreur);
             return redirect('/listerCommentaires/'. $id_manga);
-
-
         }
-
-        return redirect('/listerCommentaires/'. $id_manga);
-
-
-
-
-
     }
 
-
-
-
-
-
-}
